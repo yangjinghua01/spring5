@@ -2,8 +2,13 @@ package com.yjhdemo.spring5jdbctemplate.Dao;
 
 import com.yjhdemo.spring5jdbctemplate.yjh;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
+import java.util.Map;
+
 
 @Repository
 public class BookDaoImpl implements BookDao {
@@ -34,5 +39,32 @@ public class BookDaoImpl implements BookDao {
         String sql = "delete from yjh where id =?";
         int row = jdbcTemplate.update(sql, id);
         System.out.println(row);
+    }
+
+    //查询表中的记录数
+    @Override
+    public int selectcount() {
+        String sql = "select count(*) from yjh";
+        Integer count = jdbcTemplate.queryForObject(sql, Integer.class);
+        return count;
+    }
+
+    @Override
+    public yjh selectocj(int id) {
+        String sql = "select * from yjh where id =?";
+        /***
+         * 第一个参数 sql语句
+         * 第二个参数RowMapper   =============>new BeanPropertyRowMapper<yjh>(yjh.class)其中的泛型和类都是指的对应数据库的实体类
+         * 第三个参数sql语句值
+         */
+        yjh yjh1 = jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<yjh>(yjh.class), id);
+        return yjh1;
+    }
+
+    @Override
+    public List<yjh> selectlist() {
+        String sql = "select * from yjh";
+        List<yjh> yjhList = jdbcTemplate.query(sql, new BeanPropertyRowMapper<yjh>(yjh.class));
+        return yjhList;
     }
 }

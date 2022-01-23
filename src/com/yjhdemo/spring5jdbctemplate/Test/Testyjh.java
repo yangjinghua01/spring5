@@ -41,4 +41,25 @@ public class Testyjh {
         yjh.setSex("男");
         bookService.delbook(yjh.getId());
     }
+//    返回表中的记录数值的条数
+    @Test
+    public void testcount(){
+        ApplicationContext context = new ClassPathXmlApplicationContext("Bean.xml");
+        BookService bookService = context.getBean("bookService", BookService.class);
+        System.out.println(bookService.selectcount());
+    }
+    //    返回表中的对象
+    @Test
+    public void testobj(){
+        ApplicationContext context = new ClassPathXmlApplicationContext("Bean.xml");
+        BookService bookService = context.getBean("bookService", BookService.class);
+        System.out.println(bookService.selectobj(4).toString());
+    }
+//    返回list集合
+@Test
+public void testlist(){
+    ApplicationContext context = new ClassPathXmlApplicationContext("Bean.xml");
+    BookService bookService = context.getBean("bookService", BookService.class);
+    System.out.println(bookService.selectlist().toString());
+}
 }

@@ -16,6 +16,16 @@ public class yjh {
         this.likename = likename;
     }
 
+    @Override
+    public String toString() {
+        return "yjh{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", sex='" + sex + '\'' +
+                ", likename='" + likename + '\'' +
+                '}';
+    }
+
     public int getId() {
         return id;
     }
