@@ -39,4 +39,16 @@ public class BookService {
     public List<yjh> selectlist(){
         return bookDao.selectlist();
     }
+//    批量添加
+    public void addlist(List<Object[]>list){
+        bookDao.addlist(list);
+    }
+//    批量修改
+    public void xiuadd(List<Object[]>list){
+        bookDao.xiulist(list);
+    }
+//    批量删除
+      public void  dellist(List<Object[]>list){
+        bookDao.dellist(list);
+      }
 }

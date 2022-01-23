@@ -6,6 +6,7 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -60,11 +61,35 @@ public class BookDaoImpl implements BookDao {
         yjh yjh1 = jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<yjh>(yjh.class), id);
         return yjh1;
     }
-
+//返回list集合
     @Override
     public List<yjh> selectlist() {
         String sql = "select * from yjh";
         List<yjh> yjhList = jdbcTemplate.query(sql, new BeanPropertyRowMapper<yjh>(yjh.class));
         return yjhList;
     }
+//    jdbc批量操作
+    @Override
+    public void addlist(List<Object[]> list) {
+        String sql = "insert into yjh values(?,?,?,?)";
+        int[] lists = jdbcTemplate.batchUpdate(sql, list);
+        System.out.println(lists.toString());
+    }
+
+    @Override
+    public void xiulist(List<Object[]> list) {
+        String sql = "update yjh set name = ?,sex = ?,likename =? where id = ?";
+        int[] ints = jdbcTemplate.batchUpdate(sql, list);
+        System.out.println(Arrays.toString(ints));
+
+    }
+
+    @Override
+    public void dellist(List<Object[]> list) {
+        String sql = "delete from yjh where id =?";
+        int[] ints = jdbcTemplate.batchUpdate(sql, list);
+        System.out.println(Arrays.toString(ints));
+
+    }
+
 }

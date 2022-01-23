@@ -12,4 +12,7 @@ public interface BookDao {
     int selectcount();
     yjh selectocj(int id);
     List<yjh> selectlist();
+    void addlist(List<Object[]>list);
+    void xiulist(List<Object[]>list);
+    void dellist(List<Object[]>list);
 }

@@ -374,3 +374,48 @@ service层
         return bookDao.selectlist();
     }
     直接返回对象
+jdbcTemplate 操作数据库（批量操作）
+1.批量操作：操作表里多条记录
+2.使用jdbcTemplate实现批量添加操作
+jdbcTemplate.batchUpdate() ==========>使用该方法进行批量操作
+第一个参数
+sql语句
+第二个参数
+List集合，添加多条记录数据
+Dao层 void addlist(List<Object[]>list);    void xiulist(List<Object[]>list);
+//    jdbc批量操作
+    @Override
+    public void addlist(List<Object[]> list) {
+        String sql = "insert into yjh values(?,?,?,?)";
+        int[] lists = jdbcTemplate.batchUpdate(sql, list);
+        System.out.println(lists.toString());
+    }
+
+    @Override
+    public void xiulist(List<Object[]> list) {
+        String sql = "update yjh set name = ?,sex = ?,likename =? where id = ?";
+        int[] ints = jdbcTemplate.batchUpdate(sql, list);
+        System.out.println(Arrays.toString(ints));
+
+    }
+Service层
+//    批量添加
+    public void addlist(List<Object[]>list){
+        bookDao.addlist(list);
+    }
+//    批量修改
+    public void xiuadd(List<Object[]>list){
+        bookDao.xiulist(list);
+    }
+最开始我没有明白为啥要那么传传一个数组的list后来我明白是通过数组里面的字段和数据库的字段来一一对应
+例子如下：
+ Object [] obj0 = {"kotlin","男","科特林",4};
+        Object [] obj1 = {"jsp","男","科特林",1};
+        Object [] obj2 = {"mvc","女","腰细",2};
+        Object [] obj3 = {"mvvm","女","花姑娘",3};
+        Object [] obj5 = {"mvp","男","阿斯顿",4};
+        list.add(obj0);
+        我传进去的的事这样的
+        sql 语句是这样写的
+        String sql = "update yjh set name = ?,sex = ?,likename =? where id = ?";也就是说一个数组对应一个sql语句中给定的字段
+批量删除

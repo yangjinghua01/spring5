@@ -6,6 +6,9 @@ import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Testyjh {
     @Test
     public void testadd(){
@@ -62,4 +65,51 @@ public void testlist(){
     BookService bookService = context.getBean("bookService", BookService.class);
     System.out.println(bookService.selectlist().toString());
 }
+    //    返回list集合
+    @Test
+    public void addlist(){
+        ApplicationContext context = new ClassPathXmlApplicationContext("Bean.xml");
+        BookService bookService = context.getBean("bookService", BookService.class);
+        List<Object[]>list = new ArrayList<>();
+        Object [] obj0 = {1,"kotlin","男","科特林"};
+        Object [] obj1 = {1,"jsp","男","科特林"};
+        Object [] obj2 = {1,"mvc","男","科特林"};
+        Object [] obj3 = {1,"mvvm","男","科特林"};
+        Object [] obj5 = {1,"mvp","男","科特林"};
+        list.add(obj0);
+        list.add(obj1);
+        list.add(obj2);
+        list.add(obj3);
+        list.add(obj5);
+        bookService.addlist(list);
+    }
+//    批量修改
+    @Test
+    public void xiulist(){
+        ApplicationContext context = new ClassPathXmlApplicationContext("Bean.xml");
+        BookService bookService = context.getBean("bookService", BookService.class);
+        List<Object[]>list = new ArrayList<>();
+        Object [] obj0 = {"kotlin","男","科特林",4};
+        Object [] obj1 = {"jsp","男","科特林",1};
+        Object [] obj2 = {"mvc","女","腰细",2};
+        Object [] obj3 = {"mvvm","女","花姑娘",3};
+        Object [] obj5 = {"mvp","男","阿斯顿",4};
+        list.add(obj0);
+        list.add(obj1);
+        list.add(obj2);
+        list.add(obj3);
+        list.add(obj5);
+        bookService.xiuadd(list);
+    }
+    @Test
+    public void dellist(){
+        ApplicationContext context = new ClassPathXmlApplicationContext("Bean.xml");
+        BookService bookService = context.getBean("bookService", BookService.class);
+        List<Object[]>list = new ArrayList<>();
+        Object [] obj3 = {3};
+        Object [] obj5 = {4};
+        list.add(obj3);
+        list.add(obj5);
+        bookService.dellist(list);
+    }
 }
