@@ -287,4 +287,37 @@ public class BookDaoImpl implements BookDao {
         System.out.println(update);
     }
 }
+jdbcTemplate操作数据库（修改和删除）
+修改操作
+Dao层 void xiugai(yjh yjh);
+//修改的方法实现
+    @Override
+    public void xiugai(yjh yjh) {
+        String sql = "updata yjh set name = ?,sex = ?,likename =? where id = ?";
+        int update = jdbcTemplate.update(sql, yjh.getName(), yjh.getSex(), yjh.getLikename(), yjh.getId());
+        System.out.println(update);
+    }
+service层
+ //    修改方法
+    public void xiugai() {
 
+    }
+
+
+删除操作
+Dao层    void  del (int id);
+   //删除的方法实现
+      @Override
+      public void del(int id) {
+          String sql = "delete from yjh where id =?";
+          int row = jdbcTemplate.update(sql, id);
+          System.out.println(row);
+      }
+  }
+
+service层
+    //    删除方法
+    public void delbook() {
+
+    }
+    测试类
