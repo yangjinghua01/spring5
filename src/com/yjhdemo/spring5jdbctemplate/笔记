@@ -419,3 +419,16 @@ Service层
         sql 语句是这样写的
         String sql = "update yjh set name = ?,sex = ?,likename =? where id = ?";也就是说一个数组对应一个sql语句中给定的字段
 批量删除
+Dao层 void dellist(List<Object[]>list);
+@Override
+    public void dellist(List<Object[]> list) {
+        String sql = "delete from yjh where id =?";
+        int[] ints = jdbcTemplate.batchUpdate(sql, list);
+        System.out.println(Arrays.toString(ints));
+
+    }
+service层
+/    批量删除
+      public void  dellist(List<Object[]>list){
+        bookDao.dellist(list);
+      }
