@@ -432,3 +432,18 @@ service层
       public void  dellist(List<Object[]>list){
         bookDao.dellist(list);
       }
+事务的概念
+1.什么是事务
+（1）事务是数据库操作最基本的单元。逻辑上一组操作，要么都成功，如果有一个失败所有操作都失败
+（2）典型场景：银行转账
+事务的四个特性
+（1）原子性
+（2）一致性
+（3）隔离性
+ (4)持久性
+ 事务操作（搭建事务操作的环境）
+1.创建数据库表，添加记录
+2.创建service，搭建dao完成对象创建和注入关系
+（1）service注入dao，在dao注入JdbcTemplate，在JdbcTemplate注入Datasource
+（2）在dao中创建两个方法一个增加的方法一个减少的方法，在service中创建转账的方法
+在dao层做数据库的操作。在service层写业务。所谓的业务也就是把数据库操作集合到以前就是业务

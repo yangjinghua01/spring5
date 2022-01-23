@@ -1,6 +1,7 @@
 package com.yjhdemo.spring5jdbctemplate.Test;
 
 import com.yjhdemo.spring5jdbctemplate.Service.BookService;
+import com.yjhdemo.spring5jdbctemplate.Service.UserService;
 import com.yjhdemo.spring5jdbctemplate.yjh;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
@@ -111,5 +112,11 @@ public void testlist(){
         list.add(obj3);
         list.add(obj5);
         bookService.dellist(list);
+    }
+    @Test
+    public void testAccount(){
+        ApplicationContext context = new ClassPathXmlApplicationContext("Bean.xml");
+        UserService userService = context.getBean("userService", UserService.class);
+        userService.accountMoney();
     }
 }
